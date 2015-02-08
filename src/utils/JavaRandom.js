@@ -5,6 +5,10 @@ function Random(seed) {
     this.seed = (seed ^ 0x5DEECE66D) & ((1 << 48) - 1);
 }
 
+Random.prototype.setSeed = function(seed) {
+    this.seed = (seed ^ 0x5DEECE66D) & ((1 << 48) - 1);
+};
+
 Random.prototype.next = function (bits) {
     this.seed = (this.seed * 0x5DEECE66D + 0xB) & ((1 << 48) - 1);
     return (this.seed >>> (48 - bits));
@@ -49,6 +53,10 @@ Random.prototype.nextInt = function (n) {
         return val;
     }
     return this.next(32);
+};
+
+Random.prototype.nextLong = function() {
+    return (this.next(32) << 32) + this.next(32);
 };
 
 Random.prototype.nextBoolean = function () {

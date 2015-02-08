@@ -1,12 +1,14 @@
 function NoiseGenerator() {
-    this.perm = [];
-    this.offsetX = 0;
-    this.offsetY = 0;
-    this.offsetZ = 0;
+
 }
 
+NoiseGenerator.prototype.perm = [];
+NoiseGenerator.prototype.offsetX = 0;
+NoiseGenerator.prototype.offsetY = 0;
+NoiseGenerator.prototype.offsetZ = 0;
+
 NoiseGenerator.prototype.noise = function (x, y, z, frequency, amplitude, normalized) {
-    if (number(x) && number(y) && number(z) && un(frequency) && un(amplitude) && un(normalized)) {
+    if (isFloat(x) && isFloat(y) && isFloat(z) && un(frequency) && un(amplitude) && un(normalized)) {
         throw new Error('Not implemented');
     }
     if (!number(x)) {
@@ -45,21 +47,21 @@ NoiseGenerator.prototype.noise = function (x, y, z, frequency, amplitude, normal
 };
 
 NoiseGenerator.fade = function (x) {
-    if (number(x)) {
+    if (isFloat(x)) {
         return x * x * x * (x * (x * 6 - 15) + 10);
     }
     // fail silently, this is an internal method anyways
 };
 
 NoiseGenerator.lerp = function (x, y, z) {
-    if (number(x) && number(y) && number(z)) {
+    if (isFloat(x) && isFloat(y) && isFloat(z)) {
         return y + x * (z - y);
     }
     // fail silently, this is an internal method anyways
 };
 
 NoiseGenerator.grad = function(hash, x, y, z) {
-    if(number(x) && number(y) && number(z) && number(hash)) {
+    if(isFloat(x) && isFloat(y) && isFloat(z) && isFloat(hash)) {
         hash &= 15;
         var u = hash < 8 ? x : y;
         var v = hash < 4 ? y : hash == 12 || hash == 14 ? x : z;
@@ -72,8 +74,8 @@ function un(value) {
     return value === undefined;
 }
 
-function number(value) {
-    return value % 1 == 0;
+function isFloat(n) {
+    return n === +n && n !== (n|0);
 }
 
 module.exports = NoiseGenerator;

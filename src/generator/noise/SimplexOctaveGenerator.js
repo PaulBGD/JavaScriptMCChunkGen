@@ -3,7 +3,7 @@ var OctaveGenerator = require('./OctaveGenerator');
 var SimplexNoiseGenerator = require('./SimplexNoiseGenerator');
 
 function SimplexOctaveGenerator(random, octives) {
-    SimplexOctaveGenerator.super_.prototype.constructor.apply(this, createOctives(octives));
+    SimplexOctaveGenerator.super_.constructor.apply(this, createOctives(octives));
     this.random = random;
 }
 

@@ -34,6 +34,16 @@ OctaveGenerator.prototype.setZScale = function (scale) {
 };
 
 OctaveGenerator.prototype.noise = function (x, y, z, frequency, amplitude, normalized) {
+    if(number(x) && number(y) && number(z)) {
+        frequency = y;
+        amplitude = z;
+        normalized = false;
+    } else if(number(x) && number(y) && number(z) && number(frequency) && (amplitude === true || amplitude === false)) {
+        normalized = amplitude;
+        amplitude = frequency;
+        frequency = z;
+        z = 0;
+    }
     if (!number(x)) {
         throw new TypeError('x must be a number');
     }
