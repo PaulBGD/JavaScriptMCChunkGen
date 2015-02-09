@@ -4,6 +4,8 @@ var WhittakerMapLayer = require('./WhittakerMapLayer');
 var ZoomMapLayer = require('./ZoomMapLayer');
 var ErosionMapLayer = require('./ErosionMapLayer');
 var DeepOceanLayer = require('./DeepOceanLayer');
+var BiomeVariationMapLayer = require('./BiomeVariationMapLayer');
+var BiomeMapLayer = require('./BiomeMapLayer');
 
 function MapLayer(seed) {
     this.random = new Random();
@@ -30,4 +32,15 @@ MapLayer.initialize = function(seed, worldType) {
         layer = new ErosionMapLayer(seed + 3 + i, layer);
     }
     layer = new DeepOceanLayer(seed + 4, layer);
+
+    var layerVariation = new BiomeVariationMapLayer(seed + 200, layer);
+    var layerMountains = layerVariation;
+    for(i = 0; i < 2; i++) {
+        layerMountains = new ZoomMapLayer(seed + 200 + 1, layerMountains);
+    }
+    layer = new BiomeMapLayer(seed + 5, layer);
+    for(i = 0; i < 2; i++) {
+        layer = new ZoomMapLayer(seed + 200 + i, layer);
+    }
+
 };
