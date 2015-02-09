@@ -3,6 +3,7 @@ var NoiseMapLayer = require('./NoiseMapLayer');
 var WhittakerMapLayer = require('./WhittakerMapLayer');
 var ZoomMapLayer = require('./ZoomMapLayer');
 var ErosionMapLayer = require('./ErosionMapLayer');
+var DeepOceanLayer = require('./DeepOceanLayer');
 
 function MapLayer(seed) {
     this.random = new Random();
@@ -28,5 +29,5 @@ MapLayer.initialize = function(seed, worldType) {
     for(i = 0; i < 2; i++) {
         layer = new ErosionMapLayer(seed + 3 + i, layer);
     }
-
+    layer = new DeepOceanLayer(seed + 4, layer);
 };
