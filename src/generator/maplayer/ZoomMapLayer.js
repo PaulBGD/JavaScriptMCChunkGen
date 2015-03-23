@@ -7,7 +7,7 @@ const ZoomType = {
 };
 
 function ZoomMapLayer(seed, belowLayer, zoomType) {
-    ZoomMapLayer.super_.constructor.call(this, seed);
+    ZoomMapLayer.super_.call(this, seed);
     if(!zoomType) {
         zoomType = ZoomType.BLURRY;
     }

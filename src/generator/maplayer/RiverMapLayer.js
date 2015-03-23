@@ -9,7 +9,7 @@ SPECIAL_RIVERS[biomes.MUSHROOM_ISLAND] = biomes.biomeId[biomes.MUSHROOM_SHORE];
 SPECIAL_RIVERS[biomes.MUSHROOM_SHORE] = biomes.biomeId[biomes.MUSHROOM_SHORE];
 
 function RiverMapLayer(seed, belowLayer, mergeLayer) {
-    RiverMapLayer.super_.constructor.call(this, seed);
+    RiverMapLayer.super_.call(this, seed);
     this.belowLayer = belowLayer;
     this.mergeLayer = mergeLayer;
 }

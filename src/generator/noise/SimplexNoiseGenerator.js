@@ -36,7 +36,7 @@ const grad4 = [
 ];
 
 function SimplexNoiseGenerator(random) {
-    SimplexNoiseGenerator.super_.constructor.call(this, random);
+    SimplexNoiseGenerator.super_.call(this, random);
     this.offsetW = random.nextDouble() * 256;
 }
 util.inherits(SimplexNoiseGenerator, PerlinNoiseGenerator);

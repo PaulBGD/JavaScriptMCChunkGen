@@ -3,47 +3,47 @@ var util = require('util');
 var biomes = require('../../mc/Biome');
 
 const WARM = [
-    biomes.ids.DESERT,
-    biomes.ids.DESERT,
-    biomes.ids.DESERT,
-    biomes.ids.SAVANNA,
-    biomes.ids.SAVANNA,
-    biomes.ids.PLAINS
+    biomes.biomeId.DESERT,
+    biomes.biomeId.DESERT,
+    biomes.biomeId.DESERT,
+    biomes.biomeId.SAVANNA,
+    biomes.biomeId.SAVANNA,
+    biomes.biomeId.PLAINS
 ];
 const WET = [
-    biomes.ids.PLAINS,
-    biomes.ids.PLAINS,
-    biomes.ids.FOREST,
-    biomes.ids.BIRCH_FOREST,
-    biomes.ids.ROOFED_FOREST,
-    biomes.ids.EXTREME_HILLS,
-    biomes.ids.SWAMPLAND
+    biomes.biomeId.PLAINS,
+    biomes.biomeId.PLAINS,
+    biomes.biomeId.FOREST,
+    biomes.biomeId.BIRCH_FOREST,
+    biomes.biomeId.ROOFED_FOREST,
+    biomes.biomeId.EXTREME_HILLS,
+    biomes.biomeId.SWAMPLAND
 ];
 const DRY = [
-    biomes.ids.PLAINS,
-    biomes.ids.FOREST,
-    biomes.ids.TAIGA,
-    biomes.ids.EXTREME_HILLS
+    biomes.biomeId.PLAINS,
+    biomes.biomeId.FOREST,
+    biomes.biomeId.TAIGA,
+    biomes.biomeId.EXTREME_HILLS
 ];
 const COLD = [
-    biomes.ids.ICE_PLAINS,
-    biomes.ids.ICE_PLAINS,
-    biomes.ids.COLD_TAIGA
+    biomes.biomeId.ICE_PLAINS,
+    biomes.biomeId.ICE_PLAINS,
+    biomes.biomeId.COLD_TAIGA
 ];
 const WARM_LARGE = [
-    biomes.ids.MESA_PLATEAU_FOREST,
-    biomes.ids.MESA_PLATEAU_FOREST,
-    biomes.ids.MESA_PLATEAU
+    biomes.biomeId.MESA_PLATEAU_FOREST,
+    biomes.biomeId.MESA_PLATEAU_FOREST,
+    biomes.biomeId.MESA_PLATEAU
 ];
 const DRY_LARGE = [
-    biomes.ids.MEGA_TAIGA
+    biomes.biomeId.MEGA_TAIGA
 ];
 const WET_LARGE = [
-    biomes.ids.JUNGLE
+    biomes.biomeId.JUNGLE
 ];
 
 function BiomeMapLayer(seed, belowLayer) {
-    BiomeMapLayer.super_.constructor.call(this, seed);
+    BiomeMapLayer.super_.call(this, seed);
     this.belowLayer = belowLayer;
 }
 util.inherits(BiomeMapLayer, MapLayer);
@@ -80,6 +80,7 @@ BiomeMapLayer.prototype.generateValues = function(x, z, sizeX, sizeZ) {
                         val = WET_LARGE[this.random.nextInt(WET_LARGE.length)];
                         break;
                     default:
+                        val = 0;
                         break;
                 }
             }

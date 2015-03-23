@@ -2,7 +2,7 @@ var MapLayer = require('./MapLayer');
 var util = require('util');
 
 function SmoothMapLayer(seed, belowLayer) {
-    SmoothMapLayer.super_.constructor.call(this, seed);
+    SmoothMapLayer.super_.call(this, seed);
     this.belowLayer = belowLayer;
 }
 util.inherits(SmoothMapLayer, MapLayer);

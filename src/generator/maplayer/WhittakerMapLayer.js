@@ -24,7 +24,7 @@ const ClimateType = {
 };
 
 function WhittakerMapLayer(seed, belowLayer, type) {
-    WhittakerMapLayer.super_.constructor.call(this, seed);
+    WhittakerMapLayer.super_.call(this, seed);
     this.belowLayer = belowLayer;
     this.type = type;
 }

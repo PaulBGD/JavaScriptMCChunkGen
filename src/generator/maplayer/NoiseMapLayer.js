@@ -4,7 +4,7 @@ var MapLayer = require('./MapLayer');
 var util = require('util');
 
 function NoiseMapLayer(seed) {
-    NoiseMapLayer.super_.constructor.call(this, seed);
+    NoiseMapLayer.super_.call(this, seed);
     this.noiseGen = new SimplexOctaveGenerator(new Random(seed), 2);
 }
 util.inherits(NoiseMapLayer, MapLayer);

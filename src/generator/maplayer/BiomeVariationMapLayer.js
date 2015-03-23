@@ -3,8 +3,8 @@ var util = require('util');
 var biomes = require('../../mc/Biome');
 
 const ISLANDS = [biomes.biomeId[biomes.PLAINS], biomes.biomeId[biomes.FOREST]];
-var VARIATIONS = {};
 
+var VARIATIONS = {};
 VARIATIONS[biomes.DESERT] = [biomes.biomeId[biomes.DESERT_HILLS]];
 VARIATIONS[biomes.FOREST] = [biomes.biomeId[biomes.FOREST_HILLS]];
 VARIATIONS[biomes.BIRCH_FOREST] = [biomes.biomeId[biomes.BIRCH_FOREST_HILLS]];
@@ -23,20 +23,20 @@ VARIATIONS[biomes.MESA_PLATEAU] = [biomes.biomeId[biomes.MESA]];
 VARIATIONS[biomes.MESA] = [biomes.biomeId[biomes.MESA]];
 
 function BiomeVariationMapLayer(seed, belowLayer, variationLayer) {
-    BiomeVariationMapLayer.super_.constructor.call(this, seed);
+    BiomeVariationMapLayer.super_.call(this, seed);
     this.belowLayer = belowLayer;
     this.variationLayer = variationLayer;
 }
 util.inherits(BiomeVariationMapLayer, MapLayer);
 
-BiomeVariationMapLayer.prototype.generateValues = function(x, z, sizeX, sizeZ) {
-    if(this.variationLayer) {
+BiomeVariationMapLayer.prototype.generateValues = function (x, z, sizeX, sizeZ) {
+    if (!this.variationLayer) {
         return this.generateRandomValues(x, z, sizeX, sizeZ);
     }
     return this.mergeValues(x, z, sizeX, sizeZ);
 };
 
-BiomeVariationMapLayer.prototype.generateRandomValues = function(x, z, sizeX, sizeZ) {
+BiomeVariationMapLayer.prototype.generateRandomValues = function (x, z, sizeX, sizeZ) {
     var values = this.belowLayer.generateValues(x, z, sizeX, sizeZ);
     var finalValues = [];
     for (var i = 0; i < sizeZ; i++) {
@@ -52,7 +52,7 @@ BiomeVariationMapLayer.prototype.generateRandomValues = function(x, z, sizeX, si
     return finalValues;
 };
 
-BiomeVariationMapLayer.prototype.mergeValues = function(x, z, sizeX, sizeZ) {
+BiomeVariationMapLayer.prototype.mergeValues = function (x, z, sizeX, sizeZ) {
     var gridX = x - 1;
     var gridZ = z - 1;
     var gridSizeX = sizeX + 2;
@@ -66,16 +66,16 @@ BiomeVariationMapLayer.prototype.mergeValues = function(x, z, sizeX, sizeZ) {
             var centerValue = values[j + 1 + (i + 1) * gridSizeX];
             var variationValue = eValues[j + 1 + (i + 1) * gridSizeX];
             if (centerValue != 0 && variationValue == 3 && centerValue < 128) {
-                finalValues[j + i * sizeX] = biomes.ids[(centerValue + 128).toString()] ? centerValue + 128 : centerValue;
+                finalValues[j + i * sizeX] = biomes.ids[String(centerValue + 128)] ? centerValue + 128 : centerValue;
             } else if (variationValue == 2 || this.random.nextInt(3) == 0) {
                 var val = centerValue;
-                if (VARIATIONS[biomes.ids[centerValue.toString()]]) {
-                    val = VARIATIONS[biomes.ids[centerValue.toString()]][this.random.nextInt(VARIATIONS[biomes.ids[centerValue.toString()]].length)];
+                if (VARIATIONS[biomes.ids[String(centerValue)]]) {
+                    val = VARIATIONS[biomes.ids[String(centerValue)]][this.random.nextInt(VARIATIONS[biomes.ids[String(centerValue)]].length)];
                 } else if (centerValue == biomes.biomeId[biomes.DEEP_OCEAN] && this.random.nextInt(3) == 0) {
                     val = ISLANDS[this.random.nextInt(ISLANDS.length)];
                 }
                 if (variationValue == 2 && val != centerValue) {
-                    val = biomes.ids[(val + 128).toString()] ? val + 128 : centerValue;
+                    val = biomes.ids[String(val + 128)] ? val + 128 : centerValue;
                 }
                 if (val != centerValue) {
                     var count = 0;

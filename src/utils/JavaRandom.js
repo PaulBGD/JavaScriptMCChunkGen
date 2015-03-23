@@ -1,17 +1,21 @@
+var Long = require('long');
+
 function Random(seed) {
-    if (!seed || seed % 1 === 0) {
-        seed = Date.now();
-    }
-    this.seed = (seed ^ 0x5DEECE66D) & ((1 << 48) - 1);
+    this.setSeed(seed);
 }
 
-Random.prototype.setSeed = function(seed) {
-    this.seed = (seed ^ 0x5DEECE66D) & ((1 << 48) - 1);
+Random.prototype.setSeed = function (seed) {
+    if (!seed) {
+        seed = Long.fromInt(Date.now());
+    } else {
+        seed = Long.fromValue(seed);
+    }
+    this.seed = seed.xor(25214903917).and(65535);
 };
 
 Random.prototype.next = function (bits) {
-    this.seed = (this.seed * 0x5DEECE66D + 0xB) & ((1 << 48) - 1);
-    return (this.seed >>> (48 - bits));
+    this.seed = this.seed.multiply(25214903917).add(11).and(Long.fromValue(1).shiftLeft(48).subtract(1));
+    return this.seed.toInt() >>> (48 - bits);
 };
 
 Random.prototype.nextBytes = function (buffer) {
@@ -28,7 +32,7 @@ Random.prototype.nextBytes = function (buffer) {
         buffer[i + 3] = random >> 24;
     }
     if (max < buffer.length) {
-        random = this.next(32);
+        random = this.next(38);
         for (var j = max; j < buffer.length; j++) {
             buffer[j] = random;
             random >>= 8;
@@ -55,8 +59,8 @@ Random.prototype.nextInt = function (n) {
     return this.next(32);
 };
 
-Random.prototype.nextLong = function() {
-    return (this.next(32) << 32) + this.next(32);
+Random.prototype.nextLong = function () {
+    return (Long.fromValue(this.next(32)).shiftLeft(32).add(this.next(32)));
 };
 
 Random.prototype.nextBoolean = function () {

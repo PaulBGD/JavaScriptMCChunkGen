@@ -3,7 +3,7 @@ var util = require('util');
 var biomes = require('../../mc/Biome');
 
 function DeepOcean(seed, belowLayer) {
-    DeepOcean.super_.constructor.call(this, seed);
+    DeepOcean.super_.call(this, seed);
     this.belowLayer = belowLayer;
 }
 util.inherits(DeepOcean, MapLayer);

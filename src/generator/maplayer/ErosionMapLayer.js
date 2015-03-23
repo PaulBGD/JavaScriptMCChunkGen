@@ -2,7 +2,7 @@ var MapLayer = require('./MapLayer');
 var util = require('util');
 
 function ErosionMapLayer(seed, belowLayer) {
-    ErosionMapLayer.super_.constructor.call(this, seed);
+    ErosionMapLayer.super_.call(this, seed);
     this.belowLayer = belowLayer;
 }
 util.inherits(ErosionMapLayer, MapLayer);
